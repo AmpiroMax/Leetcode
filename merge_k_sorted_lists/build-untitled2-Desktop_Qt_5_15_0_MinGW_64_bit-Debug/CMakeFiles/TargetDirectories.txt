@@ -1,0 +1,3 @@
+C:/Max/Progra/Leetcode/merge_k_sorted_lists/build-untitled2-Desktop_Qt_5_15_0_MinGW_64_bit-Debug/CMakeFiles/untitled2.dir
+C:/Max/Progra/Leetcode/merge_k_sorted_lists/build-untitled2-Desktop_Qt_5_15_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Max/Progra/Leetcode/merge_k_sorted_lists/build-untitled2-Desktop_Qt_5_15_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
