@@ -4,7 +4,7 @@
 
 # Qt creator files
 build*
-
+*.pro*
 
 # Exe files
 *.exe
