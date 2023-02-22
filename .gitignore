@@ -1,0 +1,10 @@
+# VS Files
+.vscode
+
+
+# Qt creator files
+build*
+
+
+# Exe files
+*.exe
