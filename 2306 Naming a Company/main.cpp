@@ -5,147 +5,20 @@
 
 using namespace std;
 
-// class Solution
-// {
-//     const int ALHPABET_SIZE = 26;
-
-// public:
-//     // long long distinctNames(vector<string> &ideas)
-//     // {
-//     //     long long count = 0;
-//     //     unordered_map<string, pair<vector<int>, int>> suffix_hash_table;
-
-//     //     for (auto name : ideas)
-//     //     {
-//     //         string suffix(name.begin() + 1, name.end());
-
-//     //         if (!suffix_hash_table.count(suffix))
-//     //             suffix_hash_table[suffix] = {vector<int>(ALHPABET_SIZE, 0), 0};
-
-//     //         suffix_hash_table[suffix].first[name[0] - 'a'] += 1;
-//     //         suffix_hash_table[suffix].second += 1;
-//     //     }
-
-//     //     // for (auto [key, value] : suffix_hash_table)
-//     //     // {
-//     //     //     cout << key << " " << value.second << " | ";
-//     //     //     for (int i = 0; i < value.first.size(); ++i)
-//     //     //     {
-//     //     //         if (value.first[i] != 0)
-//     //     //             cout << "{" << char('a' + i) << ", " << value.first[i] << "} ";
-//     //     //     }
-//     //     //     cout << endl;
-//     //     // }
-//     //     // cout << endl;
-
-//     //     for (auto iter1 = suffix_hash_table.begin(); iter1 != suffix_hash_table.end(); ++iter1)
-//     //     {
-//     //         auto [idea1, first_letters_count1] = *iter1;
-
-//     //         for (auto iter2 = iter1; iter2 != suffix_hash_table.end(); ++iter2)
-//     //         {
-//     //             auto [idea2, first_letters_count2] = *iter2;
-
-//     //             if (idea1 == idea2)
-//     //                 continue;
-
-//     //             int distinct_1 = first_letters_count1.second;
-//     //             int distinct_2 = first_letters_count2.second;
-
-//     //             for (int i = 0; i < first_letters_count1.first.size(); ++i)
-//     //             {
-//     //                 if (first_letters_count1.first[i] && first_letters_count2.first[i])
-//     //                 {
-//     //                     distinct_1 -= first_letters_count1.first[i];
-//     //                     distinct_2 -= first_letters_count2.first[i];
-//     //                 }
-//     //             }
-//     //             count += 2 * distinct_1 * distinct_2;
-//     //         }
-//     //     }
-//     //     // for (auto [idea1, first_letters_count1] : suffix_hash_table)
-//     //     // {
-//     //     //     for (auto [idea2, first_letters_count2] : suffix_hash_table)
-//     //     //     {
-//     //     //         if (idea1 == idea2)
-//     //     //             continue;
-
-//     //     //         for (int i = 0; i < first_letters_count1.first.size(); ++i)
-//     //     //         {
-//     //     //             int delta = first_letters_count1.first[i] * (first_letters_count2.second - first_letters_count2.first[i]);
-//     //     //             if (first_lett ers_count1.first[i])
-//     //     //                 cout << idea1 << " " << idea2 << " | " << char('a' + i) << " " << first_letters_count1.first[i] << " " << first_letters_count2.first[i] << " " << delta << endl;
-//     //     //             count += delta;
-//     //     //         }
-//     //     //     }
-//     //     // }
-
-//     //     return count;
-//     // }
-
-//     long long distinctNames(vector<string> &ideas)
-//     {
-//         long long count = 0;
-//         vector<int> first_letters_count(ALHPABET_SIZE, 0);
-//         unordered_set<string> unique_ideas;
-//         unordered_map<string, pair<vector<int>, int>> suffix_hash_table;
-
-//         for (auto name : ideas)
-//         {
-//             unique_ideas.insert(name);
-//         }
-
-//         for (auto name : unique_ideas)
-//         {
-//             string suffix(name.begin() + 1, name.end());
-//             first_letters_count[name[0] - 'a'] += 1;
-
-//             if (!suffix_hash_table.count(suffix))
-//                 suffix_hash_table[suffix] = {vector<int>(ALHPABET_SIZE, 0), 0};
-
-//             suffix_hash_table[suffix].first[name[0] - 'a'] += 1;
-//             suffix_hash_table[suffix].second += 1;
-//         }
-
-//         for (auto [suffix, suffix_letters] : suffix_hash_table)
-//         {
-//             int distinct_1 = suffix_letters.second;
-
-//             // cout << suffix << endl;
-//             int new_words_count = 0;
-//             int count_count = 0;
-//             for (int i = 0; i < first_letters_count.size(); ++i)
-//             {
-//                 if (first_letters_count[i] && !suffix_letters.first[i])
-//                 {
-//                     new_words_count += first_letters_count[i];
-//                     // cout << char('a' + i) << " " << distinct_1 << " " << new_pairs_count << endl;
-//                 }
-//             }
-//             count += new_words_count;
-//         }
-
-//         return count;
-//     }
-// };
-
 class Solution
 {
 public:
     long long distinctNames(vector<string> &ideas)
     {
-        // Group idea by their initials.
         unordered_set<string> initialGroup[26];
         for (auto &idea : ideas)
             initialGroup[idea[0] - 'a'].insert(idea.substr(1));
 
-        // Calculate number of valid names from every pair of groups.
         long long answer = 0;
         for (int i = 0; i < 25; ++i)
         {
             for (int j = i + 1; j < 26; ++j)
             {
-                // Get the number of mutual suffixes.
                 int numOfMutual = 0;
                 for (auto &ideaA : initialGroup[i])
                 {
@@ -154,9 +27,6 @@ public:
                         numOfMutual++;
                     }
                 }
-
-                // Valid names are only from distinct suffixes in both groups.
-                // Since we can swap a with b and swap b with a to create two valid names, multiple answer by 2.
                 answer += 2LL * (initialGroup[i].size() - numOfMutual) * (initialGroup[j].size() - numOfMutual);
             }
         }

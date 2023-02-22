@@ -1,5 +1,5 @@
 # VS Files
-.vscode
+.*vscode
 
 
 # Qt creator files
